@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import HeroArt from '@/components/art/HeroArt';
-import { FlagsArt, VerdictArt, WorldArt } from '@/components/art/BenefitArt';
+import HeroVisual from '@/components/HeroVisual';
+import Photo from '@/components/Photo';
+import { PHOTOS } from '@/lib/photos';
 import Faq from '@/components/Faq';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -56,7 +57,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 ))}
               </ul>
             </div>
-            <HeroArt className="mx-auto w-full max-w-[520px]" />
+            <HeroVisual />
           </div>
 
           {/* Зарубежные отчёты */}
@@ -99,7 +100,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="mt-8 grid gap-10 md:grid-cols-3">
             {t.benefits.items.map((b) => (
               <div key={b.title}>
-                {b.art === 'flags' ? <FlagsArt /> : b.art === 'verdict' ? <VerdictArt /> : <WorldArt />}
+                <Photo photo={b.art === 'flags' ? PHOTOS.crash : b.art === 'verdict' ? PHOTOS.keys : PHOTOS.chinaRoad} ratio={3 / 2} sizes="(min-width: 768px) 380px, 92vw" className="aspect-[3/2] w-full rounded-2xl" />
                 <div className="mt-5 text-xl font-semibold">{b.title}</div>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink">{b.text}</p>
               </div>
@@ -110,7 +111,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         {/* 2. Якорь потерь */}
         <section className="container-page mt-24">
           <h2 className="h2 max-w-3xl">{t.lossAnchor.title}</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr_1fr]">
+            <div className="relative overflow-hidden rounded-2xl">
+              <Photo photo={PHOTOS.dashboard} ratio={4 / 3} sizes="(min-width: 1024px) 380px, 92vw" className="aspect-[4/3] size-full lg:aspect-auto" />
+              <span className="absolute bottom-4 left-4 right-4 rounded-xl bg-white/95 px-4 py-3 text-sm font-medium">Скрученный пробег видно по истории записей, ещё до того, как вы сядете за руль.</span>
+            </div>
             <div className="rounded-2xl bg-flag-soft p-7">
               <div className="flex items-center gap-2 text-lg font-bold text-flag"><Icon name="x" /> {t.lossAnchor.without.title}</div>
               <ul className="mt-4 space-y-3">

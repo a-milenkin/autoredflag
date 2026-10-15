@@ -7,6 +7,8 @@ import Header from '@/components/Header';
 import Icon from '@/components/Icon';
 import PricingCards from '@/components/PricingCards';
 import SearchBox from '@/components/SearchBox';
+import Photo from '@/components/Photo';
+import { PHOTOS } from '@/lib/photos';
 import { getCountry, getDictionary } from '@/lib/i18n';
 import { isLocale } from '@/lib/i18n/config';
 import { allRows } from '@/lib/provider/vinTable';
@@ -33,7 +35,8 @@ export default async function World({ params }: { params: Promise<{ locale: stri
       <Header locale={locale} t={t} />
       <main id="top">
         <section>
-          <div className="container-page py-14 lg:py-20">
+          <div className="container-page grid items-center gap-10 py-12 lg:grid-cols-[1.1fr_1fr] lg:py-16">
+            <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-flag-soft px-3 py-1 text-sm font-semibold text-flag">
               <Icon name="globe" className="h-4 w-4" /> {t.world.eyebrow}
             </span>
@@ -50,6 +53,8 @@ export default async function World({ params }: { params: Promise<{ locale: stri
             <div className="mt-8 max-w-3xl">
               <SearchBox locale={locale} t={t.search} sampleHref={`/${locale}/report/${country.examples.vin}`} />
             </div>
+            </div>
+            <Photo photo={PHOTOS.offroad} ratio={4 / 3} sizes="(min-width: 1024px) 520px, 92vw" priority className="aspect-[4/3] w-full rounded-3xl" />
           </div>
         </section>
 
@@ -81,7 +86,9 @@ export default async function World({ params }: { params: Promise<{ locale: stri
               {t.sample.cta} <Icon name="arrow" />
             </Link>
           </div>
-          <div className="rounded-2xl bg-ink p-8 text-white">
+          <div className="overflow-hidden rounded-2xl bg-ink text-white">
+            <Photo photo={PHOTOS.chinaRoad} ratio={16 / 9} sizes="(min-width: 1024px) 600px, 92vw" className="aspect-[16/9] w-full" />
+            <div className="p-8">
             <div className="text-sm font-semibold uppercase text-flag">🇨🇳 {t.world.countries[0].name}</div>
             <div className="mt-2 text-2xl font-bold">{t.world.chinaTitle}</div>
             <p className="mt-3 text-white/70">{t.world.chinaText}</p>
@@ -91,6 +98,7 @@ export default async function World({ params }: { params: Promise<{ locale: stri
                   {r.make} {r.model}
                 </Link>
               ))}
+            </div>
             </div>
           </div>
         </section>

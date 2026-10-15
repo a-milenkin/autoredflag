@@ -19,3 +19,39 @@ p, li, dd { text-wrap: pretty; }
 @media print {
   header, footer, .no-print { display: none !important; }
 }
+
+/* Анимация проверки на телефоне в первом экране. Цикл 9 c. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-anim .hero-type { animation: hero-type 9s steps(9, end) infinite; }
+  .hero-anim .hero-scan { animation: hero-scan 9s ease-out infinite; }
+  .hero-anim .hero-row { animation: hero-row 9s ease-out infinite; animation-delay: calc(var(--i) * 0.25s); }
+  .hero-anim .hero-badge { animation: hero-pop 9s ease-out infinite; }
+  .hero-anim .hero-verdict { animation: hero-pop-late 9s ease-out infinite; }
+  .hero-anim[data-playing='false'] * { animation-play-state: paused; }
+}
+@keyframes hero-type {
+  0% { clip-path: inset(0 100% 0 0); }
+  14%, 94% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 100% 0 0); }
+}
+@keyframes hero-scan {
+  0%, 15% { opacity: 0; transform: translateY(0); }
+  18% { opacity: 1; }
+  30% { opacity: 0; transform: translateY(170px); }
+  100% { opacity: 0; transform: translateY(170px); }
+}
+@keyframes hero-row {
+  0%, 20% { opacity: 0; transform: translateY(6px); }
+  25%, 94% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(0); }
+}
+@keyframes hero-pop {
+  0%, 40% { opacity: 0; transform: scale(0.9); }
+  44%, 94% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; }
+}
+@keyframes hero-pop-late {
+  0%, 50% { opacity: 0; transform: translateY(6px); }
+  55%, 94% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; }
+}

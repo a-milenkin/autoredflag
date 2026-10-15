@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Dictionary } from '@/lib/i18n';
 import Logo from './Logo';
+import { PHOTO_AUTHORS } from '@/lib/photos';
 
 export default function Footer({ locale, t }: { locale: string; t: Dictionary }) {
   const hrefs = [`/${locale}/report/LGWHBUSRJGF4CBFPR`, `/${locale}/world`, `/${locale}#pricing`, `/${locale}#business`, '#'];
@@ -18,6 +19,9 @@ export default function Footer({ locale, t }: { locale: string; t: Dictionary })
           ))}
         </ul>
       </div>
+      <p className="container-page pb-4 text-xs text-ink-faint">
+        Фото: <a href="https://unsplash.com" className="underline">Unsplash</a>, авторы {PHOTO_AUTHORS.join(', ')}.
+      </p>
       <div className="border-t border-line py-4 text-center text-xs text-ink-faint">© {new Date().getFullYear()} {t.footer.rights}</div>
     </footer>
   );
