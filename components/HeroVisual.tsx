@@ -33,8 +33,8 @@ export default function HeroVisual() {
 
   return (
     <div ref={ref} className="hero-anim relative mx-auto w-full max-w-[560px] pb-10" data-playing={playing}>
-      <div className="overflow-hidden rounded-3xl">
-        <Photo photo={PHOTOS.heroSuv} ratio={4 / 3} sizes="(min-width: 1024px) 520px, 92vw" priority className="aspect-[4/3] w-full" />
+      <div className="overflow-hidden rounded-3xl bg-ink">
+        <Photo photo={PHOTOS.forestSuv} ratio={5 / 4} sizes="(min-width: 1024px) 520px, 92vw" priority className="aspect-[5/4] w-full" />
       </div>
 
       {/* Телефон */}
@@ -65,7 +65,7 @@ export default function HeroVisual() {
               </li>
             ))}
           </ul>
-          <div className="hero-verdict mt-2.5 rounded-lg bg-warn-soft px-2.5 py-1.5 text-[10px] font-semibold text-warn">Вердикт: торговаться, −220 000 ₽</div>
+          <div className="hero-verdict mt-2.5 rounded-lg bg-warn-soft px-2.5 py-1.5 text-[10px] font-semibold text-warn">Вердикт: торговаться</div>
         </div>
       </div>
     </div>
