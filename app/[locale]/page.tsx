@@ -1,17 +1,16 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import CarPicture from '@/components/CarPicture';
+import HeroArt from '@/components/art/HeroArt';
+import { FlagsArt, VerdictArt, WorldArt } from '@/components/art/BenefitArt';
 import Faq from '@/components/Faq';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Icon from '@/components/Icon';
 import PricingCards from '@/components/PricingCards';
 import SearchBox from '@/components/SearchBox';
-import TeaserList from '@/components/TeaserList';
 import { getCountry, getDictionary } from '@/lib/i18n';
 import { isLocale } from '@/lib/i18n/config';
 import { allRows } from '@/lib/provider/vinTable';
-import type { Severity } from '@/lib/report/types';
 
 const VERDICT_TONE: Record<string, { ring: string; badge: string }> = {
   walk: { ring: 'border-flag/40', badge: 'bg-flag text-white' },
@@ -19,14 +18,6 @@ const VERDICT_TONE: Record<string, { ring: string; badge: string }> = {
   buy: { ring: 'border-ok/40', badge: 'bg-ok text-white' },
 };
 
-const HERO_DEMO: { title: string; severity: Severity }[] = [
-  { title: 'Записи о ДТП', severity: 'red' },
-  { title: 'История пробега', severity: 'red' },
-  { title: 'Юридическая чистота', severity: 'green' },
-  { title: 'История до ввоза (Китай)', severity: 'yellow' },
-  { title: 'Ввоз и растаможка', severity: 'yellow' },
-  { title: 'Такси и каршеринг', severity: 'green' },
-];
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -40,40 +31,71 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <Header locale={locale} t={t} />
       <main id="top">
         {/* 1. Первый экран */}
-        <section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-paper to-white">
-          <div className="container-page grid items-center gap-12 py-14 lg:grid-cols-[1.15fr_1fr] lg:py-20">
+        <section className="container-page pt-8 lg:pt-10">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_1fr]">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-flag-soft px-3 py-1 text-sm font-semibold text-flag">
-                <Icon name="flag" className="h-4 w-4" /> {t.hero.eyebrow}
-              </span>
-              <h1 className="mt-5 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[56px]">{t.hero.title}</h1>
-              <p className="lead mt-5 max-w-xl">{t.hero.subtitle}</p>
-              <div className="mt-8">
-                <SearchBox locale={locale} t={t.search} />
+              <a href="#benefits" className="inline-flex items-center gap-4 rounded-2xl bg-flag-soft py-2.5 pl-3 pr-2.5">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-flag text-white"><Icon name="flag" className="h-5 w-5" /></span>
+                <span className="leading-tight">
+                  <span className="block text-sm font-semibold">{t.promo.title}</span>
+                  <span className="block text-sm text-ink-soft">{t.promo.text}</span>
+                </span>
+                <span className="whitespace-nowrap rounded-lg bg-white px-3 py-1.5 text-sm font-medium">{t.promo.button}</span>
+              </a>
+              <h1 className="mt-6 text-[34px] font-bold leading-[1.1] tracking-tight sm:text-[44px]">{t.hero.title}</h1>
+              <p className="mt-4 max-w-xl text-[18px] leading-relaxed text-ink">{t.hero.subtitle}</p>
+              <div className="mt-7">
+                <SearchBox locale={locale} t={t.search} sampleHref={`/${locale}/report/${country.examples.vin}`} />
               </div>
             </div>
+            <HeroArt className="mx-auto w-full max-w-[520px]" />
+          </div>
 
-            {/* Пример бесплатной проверки */}
-            <div className="card p-5 shadow-[0_30px_60px_-30px_rgba(20,22,26,0.35)]">
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-ink-faint">
-                <span>{t.teaserDemo.title}</span>
-                <span className="rounded bg-paper px-2 py-0.5 normal-case tracking-normal">пример</span>
-              </div>
-              <div className="mt-4 flex gap-4">
-                <CarPicture make="Haval" model="Jolion" color="Серый" className="h-24 w-36 shrink-0" />
-                <div>
-                  <div className="text-xl font-extrabold">Haval Jolion, 2023</div>
-                  <div className="mt-1 text-sm text-ink-soft">VIN LGWH*************</div>
-                  <div className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-flag px-2.5 py-1 text-sm font-bold text-white">
-                    <Icon name="flag" className="h-4 w-4" /> 2 красных флага
-                  </div>
-                </div>
-              </div>
-              <div className="mt-5">
-                <TeaserList items={HERO_DEMO} statusLabel={t.report.statusLabel} columns={1} />
-              </div>
-              <p className="mt-4 border-t border-line pt-3 text-sm text-ink-soft">{t.teaserDemo.note}</p>
+          {/* Зарубежные отчёты */}
+          <Link href={`/${locale}/world`} className="mt-10 flex items-center gap-4 rounded-2xl bg-mist px-5 py-4 transition-colors hover:bg-[#E9EBEE]">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#DE2910] text-lg" aria-hidden="true">🇨🇳</span>
+            <span className="flex-1">
+              <span className="block font-semibold">{t.foreign.title}</span>
+              <span className="block text-sm text-ink-soft">{t.foreign.text}</span>
+            </span>
+            <span className="hidden rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white sm:inline-block">{t.foreign.button}</span>
+          </Link>
+
+          {/* Пакеты: для себя и для бизнеса */}
+          <div className="mt-3 grid gap-3 md:grid-cols-2">
+            <div className="relative overflow-hidden rounded-2xl bg-mist p-6">
+              <div className="text-lg font-semibold">{t.packs.self.title}</div>
+              <p className="mt-2 max-w-sm text-[15px] text-ink-soft">{t.packs.self.text}</p>
+              <a href="#pricing" className="mt-5 inline-block rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white">{t.packs.self.button}</a>
+              <svg viewBox="0 0 120 100" className="absolute -bottom-2 right-3 hidden h-28 sm:block" aria-hidden="true">
+                <rect x="14" y="20" width="70" height="78" rx="10" fill="#fff" transform="rotate(-8 50 60)" />
+                <rect x="34" y="14" width="70" height="78" rx="10" fill="#FDECEB" stroke="#E5372F" strokeOpacity="0.3" transform="rotate(6 70 50)" />
+                <path d="M62 30v40M63 31h22l-5 7 5 7H63z" fill="#E5372F" stroke="#E5372F" strokeWidth="2" strokeLinejoin="round" />
+              </svg>
             </div>
+            <div id="business" className="relative scroll-mt-24 overflow-hidden rounded-2xl bg-mist p-6">
+              <div className="text-lg font-semibold">{t.packs.business.title}</div>
+              <p className="mt-2 max-w-sm text-[15px] text-ink-soft">{t.packs.business.text}</p>
+              <div className="mt-5 flex gap-2">
+                <a href="mailto:hello@carredflag.com" className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white">{t.packs.business.button}</a>
+                <a href="#audiences" className="rounded-lg bg-white px-4 py-2 text-sm font-medium">{t.packs.business.more}</a>
+              </div>
+              <span className="absolute bottom-5 right-5 hidden rounded-xl bg-white px-3 py-1.5 text-lg font-bold text-flag shadow-sm sm:block">API</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Чем полезен */}
+        <section id="benefits" className="container-page mt-20 scroll-mt-24">
+          <h2 className="h2">{t.benefits.title}</h2>
+          <div className="mt-8 grid gap-10 md:grid-cols-3">
+            {t.benefits.items.map((b) => (
+              <div key={b.title}>
+                {b.art === 'flags' ? <FlagsArt /> : b.art === 'verdict' ? <VerdictArt /> : <WorldArt />}
+                <div className="mt-5 text-xl font-semibold">{b.title}</div>
+                <p className="mt-2 text-[15px] leading-relaxed text-ink">{b.text}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -81,7 +103,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <section className="container-page mt-24">
           <h2 className="h2 max-w-3xl">{t.lossAnchor.title}</h2>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-flag/20 bg-flag-soft/60 p-7">
+            <div className="rounded-2xl bg-flag-soft p-7">
               <div className="flex items-center gap-2 text-lg font-bold text-flag"><Icon name="x" /> {t.lossAnchor.without.title}</div>
               <ul className="mt-4 space-y-3">
                 {t.lossAnchor.without.items.map((i) => (
@@ -89,7 +111,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-ok/20 bg-ok-soft/70 p-7">
+            <div className="rounded-2xl bg-ok-soft p-7">
               <div className="flex items-center gap-2 text-lg font-bold text-ok"><Icon name="check" /> {t.lossAnchor.with.title}</div>
               <ul className="mt-4 space-y-3">
                 {t.lossAnchor.with.items.map((i) => (
@@ -130,7 +152,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.contents.items.map((i) => (
               <div key={i.title} className="card p-5">
-                <span className="inline-flex rounded-xl bg-paper p-2.5 text-ink"><Icon name={i.icon} className="h-6 w-6" /></span>
+                <span className="inline-flex rounded-xl bg-white p-2.5 text-flag"><Icon name={i.icon} className="h-6 w-6" /></span>
                 <div className="mt-4 font-bold">{i.title}</div>
                 <div className="mt-1 text-sm text-ink-soft">{i.text}</div>
               </div>
@@ -142,7 +164,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <section className="container-page mt-16">
           <div className="flex flex-col items-start justify-between gap-6 rounded-2xl bg-ink p-8 text-white sm:flex-row sm:items-center">
             <div>
-              <div className="text-2xl font-extrabold">{t.sample.title}</div>
+              <div className="text-2xl font-bold">{t.sample.title}</div>
               <p className="mt-2 text-white/70">{t.sample.text}</p>
             </div>
             <Link href={`/${locale}/report/${country.examples.vin}`} className="btn-primary shrink-0">
@@ -170,7 +192,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {t.guarantees.items.map((g, i) => (
               <div key={g.title} className="card p-6">
-                <span className="inline-flex rounded-xl bg-ok-soft p-2.5 text-ok"><Icon name={['shield', 'recall', 'lock'][i]} className="h-6 w-6" /></span>
+                <span className="inline-flex rounded-xl bg-white p-2.5 text-ok"><Icon name={['shield', 'recall', 'lock'][i]} className="h-6 w-6" /></span>
                 <div className="mt-4 text-lg font-bold">{g.title}</div>
                 <p className="mt-2 text-ink-soft">{g.text}</p>
               </div>
@@ -201,25 +223,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </section>
 
-        {/* 9. Авто из-за рубежа */}
-        <section className="container-page mt-24">
-          <Link href={`/${locale}/world`} className="group grid gap-6 overflow-hidden rounded-2xl border border-line bg-gradient-to-r from-flag-soft to-white p-8 md:grid-cols-[1.5fr_1fr] md:items-center">
-            <div>
-              <span className="text-sm font-semibold uppercase tracking-wider text-flag">{t.world.eyebrow}</span>
-              <div className="mt-2 text-3xl font-extrabold tracking-tight">{t.world.title}</div>
-              <p className="mt-3 text-ink-soft">{t.world.subtitle}</p>
-              <span className="mt-5 inline-flex items-center gap-2 font-semibold group-hover:gap-3">Подробнее <Icon name="arrow" /></span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {t.world.countries.map((c) => (
-                <span key={c.code} className="rounded-xl border border-line bg-white px-4 py-2 font-semibold">{c.name}</span>
-              ))}
-            </div>
-          </Link>
-        </section>
-
         {/* 10. Для кого */}
-        <section id="business" className="container-page mt-24 scroll-mt-24">
+        <section id="audiences" className="container-page mt-24 scroll-mt-24">
           <h2 className="h2">{t.audiences.title}</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.audiences.items.map((a) => (
@@ -237,7 +242,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <p className="lead mt-3">{t.popular.subtitle}</p>
           <div className="mt-6 flex flex-wrap gap-2">
             {popular.map((r) => (
-              <Link key={r.vin} href={`/${locale}/report/${r.vin}`} className="rounded-xl border border-line px-4 py-2 text-sm font-medium hover:border-ink">
+              <Link key={r.vin} href={`/${locale}/report/${r.vin}`} className="rounded-xl bg-mist px-4 py-2 text-sm font-medium hover:bg-[#E6E8EC]">
                 {r.make} {r.model}
               </Link>
             ))}
@@ -250,7 +255,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         {/* 13. Финальный призыв */}
         <section className="container-page mt-24">
           <div className="rounded-3xl bg-ink px-6 py-12 text-white sm:px-12">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t.finalCta.title}</h2>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{t.finalCta.title}</h2>
             <p className="mt-3 text-white/70">{t.finalCta.text}</p>
             <div className="mt-8 max-w-3xl">
               <SearchBox locale={locale} t={t.search} dark />

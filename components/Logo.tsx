@@ -8,7 +8,7 @@ export default function Logo({ locale }: { locale: string }) {
         <path d="M22 14v38" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
         <path d="M24 15h22l-6 9 6 9H24z" fill="#E5372F" />
       </svg>
-      <span className="text-lg font-extrabold leading-none tracking-tight">
+      <span className="text-lg font-bold leading-none tracking-tight">
         Car<span className="text-flag">Red</span>Flag
       </span>
     </Link>

@@ -32,23 +32,23 @@ export default async function World({ params }: { params: Promise<{ locale: stri
     <>
       <Header locale={locale} t={t} />
       <main id="top">
-        <section className="border-b border-line bg-gradient-to-b from-paper to-white">
+        <section>
           <div className="container-page py-14 lg:py-20">
             <span className="inline-flex items-center gap-2 rounded-full bg-flag-soft px-3 py-1 text-sm font-semibold text-flag">
               <Icon name="globe" className="h-4 w-4" /> {t.world.eyebrow}
             </span>
-            <h1 className="mt-5 max-w-4xl text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl">{t.world.title}</h1>
+            <h1 className="mt-5 max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl">{t.world.title}</h1>
             <p className="lead mt-5 max-w-2xl">{t.world.subtitle}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {t.world.countries.map((c) => (
-                <span key={c.code} className="inline-flex items-center gap-2 rounded-xl border border-line bg-white px-3.5 py-2 font-semibold">
+                <span key={c.code} className="inline-flex items-center gap-2 rounded-xl bg-mist px-3.5 py-2 font-medium">
                   <span aria-hidden="true">{FLAGS[c.code]}</span>
                   {c.name}
                 </span>
               ))}
             </div>
             <div className="mt-8 max-w-3xl">
-              <SearchBox locale={locale} t={t.search} />
+              <SearchBox locale={locale} t={t.search} sampleHref={`/${locale}/report/${country.examples.vin}`} />
             </div>
           </div>
         </section>
@@ -57,7 +57,7 @@ export default async function World({ params }: { params: Promise<{ locale: stri
           <h2 className="h2">{t.world.risksTitle}</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.world.risks.map((r) => (
-              <div key={r.title} className="rounded-2xl border border-flag/20 bg-flag-soft/50 p-6">
+              <div key={r.title} className="rounded-2xl bg-flag-soft p-6">
                 <Icon name="flag" className="h-6 w-6 text-flag" />
                 <div className="mt-3 text-lg font-bold">{r.title}</div>
                 <p className="mt-2 text-ink-soft">{r.text}</p>
@@ -83,7 +83,7 @@ export default async function World({ params }: { params: Promise<{ locale: stri
           </div>
           <div className="rounded-2xl bg-ink p-8 text-white">
             <div className="text-sm font-semibold uppercase tracking-wider text-flag">🇨🇳 {t.world.countries[0].name}</div>
-            <div className="mt-2 text-2xl font-extrabold">{t.world.chinaTitle}</div>
+            <div className="mt-2 text-2xl font-bold">{t.world.chinaTitle}</div>
             <p className="mt-3 text-white/70">{t.world.chinaText}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {cnModels.map((r) => (
@@ -99,7 +99,7 @@ export default async function World({ params }: { params: Promise<{ locale: stri
           <h2 className="h2">{t.popular.title}</h2>
           <div className="mt-6 flex flex-wrap gap-2">
             {otherModels.map((r) => (
-              <Link key={r.vin} href={`/${locale}/report/${r.vin}`} className="rounded-xl border border-line px-4 py-2 text-sm font-medium hover:border-ink">
+              <Link key={r.vin} href={`/${locale}/report/${r.vin}`} className="rounded-xl bg-mist px-4 py-2 text-sm font-medium hover:bg-[#E6E8EC]">
                 {FLAGS[r.originCountry]} {r.make} {r.model}
               </Link>
             ))}

@@ -17,12 +17,12 @@ export default function PricingCards({ locale, onChoose, chooseHref = '#top', bu
         const full = single * p.reports;
         const off = p.reports > 1 ? Math.round((1 - p.price / full) * 100) : 0;
         return (
-          <div key={p.id} className={`relative flex flex-col rounded-2xl p-6 ${p.highlight ? 'bg-ink text-white ring-2 ring-flag' : 'border border-line bg-white'}`}>
+          <div key={p.id} className={`relative flex flex-col rounded-2xl p-6 ${p.highlight ? 'bg-ink text-white ring-2 ring-flag' : 'bg-mist'}`}>
             {p.highlight && <span className="absolute -top-3 left-6 rounded-full bg-flag px-3 py-1 text-xs font-bold text-white">{t.popular}</span>}
             <div className="text-lg font-bold">{p.reports === 1 ? t.one : p.reports === 3 ? t.three : t.many(p.reports)}</div>
             <div className={`mt-1 text-sm ${p.highlight ? 'text-white/70' : 'text-ink-soft'}`}>{t.forWhom[p.id]}</div>
             <div className="mt-5 flex items-baseline gap-2">
-              <span className="text-3xl font-extrabold">{formatPrice(p.price, country)}</span>
+              <span className="text-3xl font-bold">{formatPrice(p.price, country)}</span>
               {off > 0 && <span className={`text-sm line-through ${p.highlight ? 'text-white/50' : 'text-ink-faint'}`}>{formatPrice(full, country)}</span>}
             </div>
             <div className={`mt-1 text-sm ${p.highlight ? 'text-white/70' : 'text-ink-soft'}`}>

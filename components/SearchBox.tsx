@@ -6,9 +6,9 @@ import { identify } from '@/lib/identify';
 import type { Dictionary } from '@/lib/i18n';
 import Icon from './Icon';
 
-type Props = { locale: string; t: Dictionary['search']; example?: string; size?: 'lg' | 'sm'; dark?: boolean };
+type Props = { locale: string; t: Dictionary['search']; example?: string; size?: 'lg' | 'sm'; dark?: boolean; sampleHref?: string };
 
-export default function SearchBox({ locale, t, example, size = 'lg', dark = false }: Props) {
+export default function SearchBox({ locale, t, example, size = 'lg', dark = false, sampleHref }: Props) {
   const router = useRouter();
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
@@ -33,7 +33,7 @@ export default function SearchBox({ locale, t, example, size = 'lg', dark = fals
           onChange={(e) => { setValue(e.target.value); setError(false); }}
           placeholder={t.placeholder}
           aria-label={t.placeholder}
-          className={`min-w-0 flex-1 rounded-l-xl border border-r-0 px-3 py-2 text-sm outline-none focus:border-flag ${error ? 'border-flag' : 'border-line'} bg-paper`}
+          className={`min-w-0 flex-1 rounded-l-xl border border-r-0 px-3 py-2 text-sm outline-none focus:border-flag ${error ? 'border-flag' : 'border-transparent'} bg-[#F2F3F5]`}
         />
         <button className="rounded-r-xl bg-flag px-4 text-sm font-semibold text-white hover:bg-flag-dark">{t.buttonShort}</button>
       </form>
@@ -42,9 +42,9 @@ export default function SearchBox({ locale, t, example, size = 'lg', dark = fals
 
   return (
     <form onSubmit={submit} className="w-full" role="search">
-      <div className={`flex flex-col gap-2 rounded-2xl p-2 shadow-[0_10px_40px_-12px_rgba(20,22,26,0.25)] sm:flex-row ${dark ? 'bg-white/10 ring-1 ring-white/20' : 'bg-white ring-1 ring-line'}`}>
+      <div className={`flex w-full max-w-xl overflow-hidden rounded-xl ring-2 transition-shadow ${error ? 'ring-flag' : dark ? 'ring-white/20' : 'ring-flag/25 focus-within:ring-flag/60'}`}>
         <div className="relative flex-1">
-          <Icon name="search" className={`pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 ${dark ? 'text-white/60' : 'text-ink-faint'}`} />
+          <Icon name="search" className={`pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 ${dark ? 'text-white/60' : 'text-ink-soft'}`} />
           <input
             value={value}
             onChange={(e) => { setValue(e.target.value); setError(false); }}
@@ -52,32 +52,28 @@ export default function SearchBox({ locale, t, example, size = 'lg', dark = fals
             aria-label={t.placeholder}
             autoComplete="off"
             spellCheck={false}
-            className={`h-14 w-full rounded-xl pl-12 ${detected ? "pr-32" : "pr-4"} text-lg font-medium uppercase tracking-wide outline-none placeholder:normal-case placeholder:tracking-normal ${dark ? 'bg-transparent text-white placeholder:text-white/50' : 'bg-paper text-ink placeholder:text-ink-faint'} ${error ? 'ring-2 ring-flag' : ''}`}
+            className={`h-12 w-full pl-10 ${detected ? 'pr-28' : 'pr-3'} text-[17px] uppercase tracking-wide outline-none placeholder:normal-case placeholder:tracking-normal ${dark ? 'bg-white/10 text-white placeholder:text-white/50' : 'bg-[#FFF5F4] text-ink placeholder:text-ink-faint'}`}
           />
           {detected && (
-            <span className={`absolute right-3 top-1/2 -translate-y-1/2 rounded-md px-2 py-1 text-xs font-semibold ${detected.type === 'unknown' ? 'bg-flag-soft text-flag' : 'bg-ok-soft text-ok'}`}>
+            <span className={`absolute right-2.5 top-1/2 -translate-y-1/2 rounded-md px-2 py-0.5 text-xs font-semibold ${detected.type === 'unknown' ? 'bg-flag-soft text-flag' : 'bg-ok-soft text-ok'}`}>
               {t.detected[detected.type]}
             </span>
           )}
         </div>
-        <button type="submit" className="btn-primary h-14 px-7 text-base">
-          {t.button}
-          <Icon name="arrow" className="h-5 w-5" />
+        <button type="submit" className="bg-flag px-6 text-[15px] font-semibold text-white transition-colors hover:bg-flag-dark">
+          {t.buttonShort}
         </button>
       </div>
       {error && <p className="mt-2 text-sm font-medium text-flag">{t.error}</p>}
-      <div className={`mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm ${dark ? 'text-white/75' : 'text-ink-soft'}`}>
-        <button type="button" onClick={() => setShowVin((v) => !v)} className={`font-medium underline decoration-dotted underline-offset-4 ${dark ? 'text-white' : 'text-ink'}`}>
+      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+        <button type="button" onClick={() => setShowVin((v) => !v)} className={dark ? 'text-white hover:underline' : 'text-flag hover:underline'}>
           {t.whereVin}
         </button>
-        {t.microFacts.map((f) => (
-          <span key={f} className="inline-flex items-center gap-1.5">
-            <Icon name="check" className="h-4 w-4 text-ok" strokeWidth={2.4} />
-            {f}
-          </span>
-        ))}
+        {sampleHref && (
+          <a href={sampleHref} className={dark ? 'text-white hover:underline' : 'text-flag hover:underline'}>{t.sample}</a>
+        )}
       </div>
-      {showVin && <p className={`mt-2 max-w-2xl text-sm ${dark ? 'text-white/80' : 'text-ink-soft'}`}>{t.whereVinText}</p>}
+      {showVin && <p className={`mt-2 max-w-xl text-sm ${dark ? 'text-white/80' : 'text-ink-soft'}`}>{t.whereVinText}</p>}
     </form>
   );
 }

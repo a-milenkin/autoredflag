@@ -34,7 +34,7 @@ export default async function ReportPage({ params }: Params) {
           <ReportView preview={toPreview(report)} locale={locale} />
         ) : (
           <div className="mx-auto max-w-2xl py-16 text-center">
-            <h1 className="text-3xl font-extrabold">{t.report.notFound}</h1>
+            <h1 className="text-3xl font-bold">{t.report.notFound}</h1>
             <p className="lead mt-3">{t.report.notFoundText}</p>
             <div className="mt-8 text-left">
               <SearchBox locale={locale} t={t.search} />

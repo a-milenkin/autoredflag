@@ -32,7 +32,7 @@ export default function FullReport({ report, locale }: { report: Report; locale:
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
         <CarPicture make={v.make} model={v.model} color={v.color} className="aspect-[16/9] w-full shrink-0 sm:w-64" />
         <div className="flex-1">
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {v.make} {v.model}, {v.year}
           </h1>
           <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-ink-soft">
@@ -59,7 +59,7 @@ export default function FullReport({ report, locale }: { report: Report; locale:
       {/* Вердикт */}
       <section className={`mt-8 rounded-2xl border-2 p-6 sm:p-8 ${vs.box}`}>
         <div className="flex flex-wrap items-center gap-3">
-          <span className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-lg font-extrabold text-white ${vs.badge}`}>
+          <span className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-lg font-bold text-white ${vs.badge}`}>
             <Icon name={vs.icon} className="h-5 w-5" strokeWidth={2.6} /> {t.decision[verdict.decision]}
           </span>
           <span className="text-sm font-semibold uppercase tracking-wider text-ink-soft">ИИ-{t.verdictTitle.toLowerCase()}</span>
@@ -84,7 +84,7 @@ export default function FullReport({ report, locale }: { report: Report; locale:
             <div className="text-sm font-bold uppercase tracking-wider text-ink-soft">{t.discount}</div>
             {verdict.discountRub ? (
               <>
-                <div className="mt-2 text-3xl font-extrabold">−{rub(verdict.discountRub)}</div>
+                <div className="mt-2 text-3xl font-bold">−{rub(verdict.discountRub)}</div>
                 <p className="mt-1 text-sm text-ink-soft">от рыночной цены {rub(v.marketPrice)} с учётом найденных проблем</p>
               </>
             ) : (
@@ -101,7 +101,7 @@ export default function FullReport({ report, locale }: { report: Report; locale:
       </section>
 
       {/* Разделы */}
-      <h2 className="mt-12 text-2xl font-extrabold">{t.sectionsTitle}</h2>
+      <h2 className="mt-12 text-2xl font-bold">{t.sectionsTitle}</h2>
       <div className="mt-5 grid gap-4">
         {sections.map((s) => {
           const st = SEVERITY_STYLE[s.severity];
