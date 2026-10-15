@@ -38,7 +38,7 @@ export default function HeroVisual() {
       </div>
 
       {/* Телефон */}
-      <div className="absolute -bottom-2 right-2 w-[210px] rounded-[30px] bg-ink p-[7px] shadow-2xl sm:right-[-12px]" aria-hidden="true">
+      <div className="absolute -bottom-2 right-2 w-[210px] origin-bottom-right scale-[0.78] rounded-[30px] sm:scale-100 bg-ink p-[7px] shadow-2xl sm:right-[-12px]" aria-hidden="true">
         <div className="relative overflow-hidden rounded-[24px] bg-white px-3.5 pb-4 pt-6">
           <div className="absolute left-1/2 top-1.5 h-3.5 w-14 -translate-x-1/2 rounded-full bg-ink" />
           <div className="flex h-8 items-center gap-1.5 rounded-lg bg-mist px-2.5">
