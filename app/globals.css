@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -55,3 +56,10 @@ p, li, dd { text-wrap: pretty; }
   55%, 94% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; }
 }
+
+/* Поле ввода в виде номера */
+.plate-font { font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif; font-weight: 700; font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: no-preference) {
+  .plate-caret { animation: plate-blink 1s steps(1) infinite; }
+}
+@keyframes plate-blink { 50% { opacity: 0; } }
