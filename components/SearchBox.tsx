@@ -13,6 +13,7 @@ export default function SearchBox({ locale, t, example, size = 'lg', dark = fals
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
   const [showVin, setShowVin] = useState(false);
+  const [tab, setTab] = useState<'plate' | 'vin' | 'body'>('plate');
   const detected = useMemo(() => (value.trim().length >= 6 ? identify(value) : null), [value]);
 
   function submit(e: React.FormEvent) {
@@ -42,17 +43,32 @@ export default function SearchBox({ locale, t, example, size = 'lg', dark = fals
 
   return (
     <form onSubmit={submit} className="w-full" role="search">
+      {!dark && (
+        <div className="mb-2 inline-flex rounded-lg bg-mist p-1 text-sm" role="group" aria-label={t.tabsLabel}>
+          {(['plate', 'vin', 'body'] as const).map((k) => (
+            <button
+              key={k}
+              type="button"
+              aria-pressed={tab === k}
+              onClick={() => setTab(k)}
+              className={`rounded-md px-3.5 py-1.5 font-medium transition-colors ${tab === k ? 'bg-white text-ink shadow-sm' : 'text-ink-soft hover:text-ink'}`}
+            >
+              {t.tabs[k]}
+            </button>
+          ))}
+        </div>
+      )}
       <div className={`flex w-full max-w-xl overflow-hidden rounded-xl ring-2 transition-shadow ${error ? 'ring-flag' : dark ? 'ring-white/20' : 'ring-flag/25 focus-within:ring-flag/60'}`}>
         <div className="relative flex-1">
-          <Icon name="search" className={`pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 ${dark ? 'text-white/60' : 'text-ink-soft'}`} />
+          <Icon name="search" className={`pointer-events-none absolute left-3.5 top-1/2 size-[18px] -translate-y-1/2 ${dark ? 'text-white/60' : 'text-ink-soft'}`} />
           <input
             value={value}
             onChange={(e) => { setValue(e.target.value); setError(false); }}
-            placeholder={example ? `${t.placeholder}, например ${example}` : t.placeholder}
+            placeholder={dark ? t.placeholder : t.tabPlaceholders[tab]}
             aria-label={t.placeholder}
             autoComplete="off"
             spellCheck={false}
-            className={`h-12 w-full pl-10 ${detected ? 'pr-28' : 'pr-3'} text-[17px] uppercase tracking-wide outline-none placeholder:normal-case placeholder:tracking-normal ${dark ? 'bg-white/10 text-white placeholder:text-white/50' : 'bg-[#FFF5F4] text-ink placeholder:text-ink-faint'}`}
+            className={`h-12 w-full pl-10 ${detected ? 'pr-28' : 'pr-3'} text-[17px] uppercase outline-none placeholder:normal-case ${dark ? 'bg-white/10 text-white placeholder:text-white/50' : 'bg-[#FFF5F4] text-ink placeholder:text-ink-faint'}`}
           />
           {detected && (
             <span className={`absolute right-2.5 top-1/2 -translate-y-1/2 rounded-md px-2 py-0.5 text-xs font-semibold ${detected.type === 'unknown' ? 'bg-flag-soft text-flag' : 'bg-ok-soft text-ok'}`}>
@@ -64,7 +80,7 @@ export default function SearchBox({ locale, t, example, size = 'lg', dark = fals
           {t.buttonShort}
         </button>
       </div>
-      {error && <p className="mt-2 text-sm font-medium text-flag">{t.error}</p>}
+      {error && <p role="alert" className="mt-2 text-sm font-medium text-flag">{t.error}</p>}
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
         <button type="button" onClick={() => setShowVin((v) => !v)} className={dark ? 'text-white hover:underline' : 'text-flag hover:underline'}>
           {t.whereVin}

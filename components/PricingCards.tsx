@@ -22,7 +22,7 @@ export default function PricingCards({ locale, onChoose, chooseHref = '#top', bu
             <div className="text-lg font-bold">{p.reports === 1 ? t.one : p.reports === 3 ? t.three : t.many(p.reports)}</div>
             <div className={`mt-1 text-sm ${p.highlight ? 'text-white/70' : 'text-ink-soft'}`}>{t.forWhom[p.id]}</div>
             <div className="mt-5 flex items-baseline gap-2">
-              <span className="text-3xl font-bold">{formatPrice(p.price, country)}</span>
+              <span className="text-3xl font-bold tabular-nums">{formatPrice(p.price, country)}</span>
               {off > 0 && <span className={`text-sm line-through ${p.highlight ? 'text-white/50' : 'text-ink-faint'}`}>{formatPrice(full, country)}</span>}
             </div>
             <div className={`mt-1 text-sm ${p.highlight ? 'text-white/70' : 'text-ink-soft'}`}>

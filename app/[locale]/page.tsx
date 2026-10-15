@@ -42,11 +42,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </span>
                 <span className="whitespace-nowrap rounded-lg bg-white px-3 py-1.5 text-sm font-medium">{t.promo.button}</span>
               </a>
-              <h1 className="mt-6 text-[34px] font-bold leading-[1.1] tracking-tight sm:text-[44px]">{t.hero.title}</h1>
+              <h1 className="mt-6 text-[34px] font-bold leading-[1.1] sm:text-[44px]">{t.hero.title}</h1>
               <p className="mt-4 max-w-xl text-[18px] leading-relaxed text-ink">{t.hero.subtitle}</p>
               <div className="mt-7">
                 <SearchBox locale={locale} t={t.search} sampleHref={`/${locale}/report/${country.examples.vin}`} />
               </div>
+              <ul className="mt-7 grid max-w-xl gap-x-6 gap-y-3 sm:grid-cols-2">
+                {t.advantages.map((a) => (
+                  <li key={a.text} className="flex items-center gap-3 text-[15px]">
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-flag-soft text-flag"><Icon name={a.icon} className="size-4" /></span>
+                    {a.text}
+                  </li>
+                ))}
+              </ul>
             </div>
             <HeroArt className="mx-auto w-full max-w-[520px]" />
           </div>
@@ -77,7 +85,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <div className="text-lg font-semibold">{t.packs.business.title}</div>
               <p className="mt-2 max-w-sm text-[15px] text-ink-soft">{t.packs.business.text}</p>
               <div className="mt-5 flex gap-2">
-                <a href="mailto:hello@carredflag.com" className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white">{t.packs.business.button}</a>
+                <a href="mailto:hello@autoredflag.com" className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white">{t.packs.business.button}</a>
                 <a href="#audiences" className="rounded-lg bg-white px-4 py-2 text-sm font-medium">{t.packs.business.more}</a>
               </div>
               <span className="absolute bottom-5 right-5 hidden rounded-xl bg-white px-3 py-1.5 text-lg font-bold text-flag shadow-sm sm:block">API</span>
@@ -255,7 +263,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         {/* 13. Финальный призыв */}
         <section className="container-page mt-24">
           <div className="rounded-3xl bg-ink px-6 py-12 text-white sm:px-12">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{t.finalCta.title}</h2>
+            <h2 className="text-3xl font-bold sm:text-4xl">{t.finalCta.title}</h2>
             <p className="mt-3 text-white/70">{t.finalCta.text}</p>
             <div className="mt-8 max-w-3xl">
               <SearchBox locale={locale} t={t.search} dark />

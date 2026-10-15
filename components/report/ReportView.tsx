@@ -76,7 +76,7 @@ export default function ReportView({ preview, locale }: { preview: ReportPreview
       {/* Шапка: машина и что нашли */}
       <div className="grid gap-8 lg:grid-cols-[1fr_1.35fr]">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="text-3xl font-bold sm:text-4xl">
             {v.make} {v.model}, {v.year}
           </h1>
           <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-ink-soft">

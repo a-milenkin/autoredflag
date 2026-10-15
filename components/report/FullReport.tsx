@@ -32,7 +32,7 @@ export default function FullReport({ report, locale }: { report: Report; locale:
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
         <CarPicture make={v.make} model={v.model} color={v.color} className="aspect-[16/9] w-full shrink-0 sm:w-64" />
         <div className="flex-1">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="text-3xl font-bold sm:text-4xl">
             {v.make} {v.model}, {v.year}
           </h1>
           <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-ink-soft">
@@ -62,12 +62,12 @@ export default function FullReport({ report, locale }: { report: Report; locale:
           <span className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-lg font-bold text-white ${vs.badge}`}>
             <Icon name={vs.icon} className="h-5 w-5" strokeWidth={2.6} /> {t.decision[verdict.decision]}
           </span>
-          <span className="text-sm font-semibold uppercase tracking-wider text-ink-soft">ИИ-{t.verdictTitle.toLowerCase()}</span>
+          <span className="text-sm font-semibold uppercase text-ink-soft">ИИ-{t.verdictTitle.toLowerCase()}</span>
         </div>
         <p className="mt-4 text-2xl font-bold leading-snug">{verdict.headline}</p>
         <div className="mt-6 grid gap-6 md:grid-cols-3">
           <div>
-            <div className="text-sm font-bold uppercase tracking-wider text-ink-soft">{t.reasons}</div>
+            <div className="text-sm font-bold uppercase text-ink-soft">{t.reasons}</div>
             <ul className="mt-2 space-y-2">
               {verdict.reasons.map((r) => (
                 <li key={r} className="flex gap-2"><Icon name="flag" className="mt-0.5 h-4 w-4 shrink-0 text-flag" />{r}</li>
@@ -75,13 +75,13 @@ export default function FullReport({ report, locale }: { report: Report; locale:
             </ul>
           </div>
           <div>
-            <div className="text-sm font-bold uppercase tracking-wider text-ink-soft">{t.questions}</div>
+            <div className="text-sm font-bold uppercase text-ink-soft">{t.questions}</div>
             <ol className="mt-2 list-decimal space-y-2 pl-5">
               {verdict.questions.map((q) => <li key={q}>{q}</li>)}
             </ol>
           </div>
           <div>
-            <div className="text-sm font-bold uppercase tracking-wider text-ink-soft">{t.discount}</div>
+            <div className="text-sm font-bold uppercase text-ink-soft">{t.discount}</div>
             {verdict.discountRub ? (
               <>
                 <div className="mt-2 text-3xl font-bold">−{rub(verdict.discountRub)}</div>

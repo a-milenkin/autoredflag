@@ -37,7 +37,7 @@ export default async function World({ params }: { params: Promise<{ locale: stri
             <span className="inline-flex items-center gap-2 rounded-full bg-flag-soft px-3 py-1 text-sm font-semibold text-flag">
               <Icon name="globe" className="h-4 w-4" /> {t.world.eyebrow}
             </span>
-            <h1 className="mt-5 max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl">{t.world.title}</h1>
+            <h1 className="mt-5 max-w-4xl text-4xl font-bold leading-[1.08] sm:text-5xl">{t.world.title}</h1>
             <p className="lead mt-5 max-w-2xl">{t.world.subtitle}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {t.world.countries.map((c) => (
@@ -82,7 +82,7 @@ export default async function World({ params }: { params: Promise<{ locale: stri
             </Link>
           </div>
           <div className="rounded-2xl bg-ink p-8 text-white">
-            <div className="text-sm font-semibold uppercase tracking-wider text-flag">🇨🇳 {t.world.countries[0].name}</div>
+            <div className="text-sm font-semibold uppercase text-flag">🇨🇳 {t.world.countries[0].name}</div>
             <div className="mt-2 text-2xl font-bold">{t.world.chinaTitle}</div>
             <p className="mt-3 text-white/70">{t.world.chinaText}</p>
             <div className="mt-6 flex flex-wrap gap-2">
