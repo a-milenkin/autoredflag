@@ -1,3 +1,4 @@
+import { getSpec } from '@/lib/carCatalog';
 // Генератор демо-отчётов. Детерминированный: один и тот же VIN всегда даёт один и тот же отчёт.
 // Когда подключим реальный API, этот файл останется только для демо и тестов.
 
@@ -125,7 +126,8 @@ export function generateReport(identifier: string, seed: CarSeed): Report {
   const model = seed.model ?? fb.model;
   const vin = seed.vin ?? synthVin(rng, origin);
   const year = Math.min(thisYear, seed.year ?? VIN_YEAR[vin[9]] ?? between(rng, 2019, thisYear));
-  const eng = make === 'Tesla' || make === 'Zeekr' ? ENGINES[5] : pick(rng, ENGINES);
+  const spec = getSpec(make, model);
+  const eng = spec ?? (make === 'Tesla' || make === 'Zeekr' ? ENGINES[5] : pick(rng, ENGINES));
   const age = Math.max(0, thisYear - year);
   const basePrice = origin === 'CN' ? 2_600_000 : origin === 'DE' || origin === 'US' ? 4_200_000 : origin === 'RU' ? 1_400_000 : 3_000_000;
   const marketPrice = Math.round((basePrice * Math.pow(0.88, age) * (0.9 + rng() * 0.25)) / 10000) * 10000;
@@ -140,7 +142,7 @@ export function generateReport(identifier: string, seed: CarSeed): Report {
     engine: eng.engine,
     power: eng.power,
     color: pick(rng, COLORS),
-    bodyType: SEDANS.includes(model) ? 'Седан' : model === 'Model Y' || origin === 'CN' || origin === 'KR' ? 'Кроссовер' : pick(rng, BODIES),
+    bodyType: spec?.body ?? (SEDANS.includes(model) ? 'Седан' : model === 'Model Y' || origin === 'CN' || origin === 'KR' ? 'Кроссовер' : pick(rng, BODIES)),
     marketPrice,
   };
 

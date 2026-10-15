@@ -1,4 +1,5 @@
 import type { SourceKey } from './sources';
+import { BRAND_PHOTOS } from './photos';
 
 export type BrandCountry = 'CN' | 'JP' | 'KR';
 
@@ -19,14 +20,6 @@ export type Brand = {
   importNote?: { text: string; src: SourceKey };
   photo: BrandPhoto;
 };
-
-const commons = (file: string, author: string, license: string): BrandPhoto => ({
-  kind: 'commons',
-  src: `https://upload.wikimedia.org/wikipedia/commons/thumb/${file}`,
-  author,
-  license,
-  page: `https://commons.wikimedia.org/wiki/File:${decodeURIComponent(file.split('/').pop()!.replace(/^\d+px-/, ''))}`,
-});
 
 export const COUNTRY_META: Record<BrandCountry, { name: string; from: string; flag: string }> = {
   CN: { name: 'Китай', from: 'из Китая', flag: '🇨🇳' },
@@ -106,7 +99,7 @@ export const BRANDS: Brand[] = [
       { title: 'Нагар и цепь на F7', text: 'Моторы с непосредственным впрыском копят нагар, раскоксовка нужна примерно после 100 тысяч км. Ресурс цепи ГРМ у 1.5T и 2.0T непредсказуем.', src: 'zrF7' },
       { title: 'Кузов и отзывная кампания F7', text: 'Ранняя ржавчина на задней двери. По отзывной кампании меняли топливные трубки из-за риска возгорания: по VIN стоит проверить, что работы сделаны.', src: 'zrF7' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1628711956301-9e6768d8331b', author: 'Michail Dementiev' },
+    photo: BRAND_PHOTOS['haval'],
   },
   {
     slug: 'chery',
@@ -123,7 +116,7 @@ export const BRANDS: Brand[] = [
       { title: 'Кузов и ЛКП', text: 'Глубокие сколы на крыше, коррозия задних арок в местах стыка с дверями и низа крышки багажника.', src: 'zrTiggo' },
       { title: 'Электрика', text: 'Периодические сбои электроприводов, электростояночного тормоза и мультимедиа. Блок ABS сбоит из-за влаги в разъёме.', src: 'zrTiggo' },
     ],
-    photo: commons('2/21/2023_Chery_Tiggo7_Pro_Max_grey_front.jpg/960px-2023_Chery_Tiggo7_Pro_Max_grey_front.jpg', 'Throwawayacc222', 'CC0'),
+    photo: BRAND_PHOTOS['chery'],
   },
   {
     slug: 'geely',
@@ -141,7 +134,7 @@ export const BRANDS: Brand[] = [
       { title: 'Робот и климат Coolray', text: 'Робот 7DCT дёргается на холодную. Самая частая жалоба владельцев - климат, который сложно настроить на комфортную температуру.', src: 'zrCoolray' },
     ],
     importNote: { text: 'Официально Monjaro продаётся с 2023 года, до этого машины возили параллельным импортом. Китайские версии бывают переднеприводными, с роботом 7DCT380 или гибридом, и это меняет весь список рисков.', src: 'zrMonjaro' },
-    photo: { kind: 'unsplash', id: 'photo-1757922589165-39921febd050', author: 'Michail Dementiev' },
+    photo: BRAND_PHOTOS['geely'],
   },
   {
     slug: 'changan',
@@ -158,7 +151,7 @@ export const BRANDS: Brand[] = [
       { title: 'Генератор и аккумулятор', text: 'Выходит из строя обгонная муфта генератора. Подсевший аккумулятор мешает машине открываться и закрываться.', src: 'dromUniK' },
       { title: 'Стекло и сколы CS35 Plus', text: 'Владельцы CS35 Plus пишут о точечных повреждениях лобового стекла за год и сколах на капоте и бампере.', src: 'lentaCs35' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1733512341143-bac915ac7dff', author: 'Mushvig Niftaliyev' },
+    photo: BRAND_PHOTOS['changan'],
   },
   {
     slug: 'exeed',
@@ -175,7 +168,7 @@ export const BRANDS: Brand[] = [
       { title: 'Сцепления Getrag на LX', text: 'У LX с мотором 1.6 вероятен износ сцеплений робота Getrag 7DCT300 после 100 тысяч км, а впуск требует чистки от отложений.', src: 'mailExeedLx' },
       { title: 'Бесключевой доступ', text: 'На LX чаще всего отказывает электроника бесключевого доступа.', src: 'mailExeedLx' },
     ],
-    photo: commons('3/3b/Exeed_TXL_facelift_001.jpg/960px-Exeed_TXL_facelift_001.jpg', 'Jengtingchen', 'CC BY-SA 4.0'),
+    photo: BRAND_PHOTOS['exeed'],
   },
   {
     slug: 'omoda-jaecoo',
@@ -192,7 +185,7 @@ export const BRANDS: Brand[] = [
       { title: 'Обогрев и камеры', text: 'Перегорает обогрев лобового стекла, меняют камеры в зеркалах, задняя камера искажает цвета.', src: 'dromJ7' },
       { title: 'Посадка в Omoda C5', text: 'Низкий потолок для водителей выше 180 см и нерегулируемая подушка сиденья. Это стоит проверить на тест-драйве.', src: 'zrOmoda' },
     ],
-    photo: commons('5/52/Chery_Omoda_5_012.jpg/960px-Chery_Omoda_5_012.jpg', 'JustAnotherCarDesigner', 'CC0'),
+    photo: BRAND_PHOTOS['omoda-jaecoo'],
   },
   {
     slug: 'tank',
@@ -208,7 +201,7 @@ export const BRANDS: Brand[] = [
       { title: 'Турбина и электроника', text: 'Упоминаются поломка турбокомпрессора, отказ блока GSM и замена телематического T-box по гарантии.', src: 'dromTank' },
       { title: 'Ходовая', text: 'Стойки стабилизатора и рулевые наконечники.', src: 'dromTank' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1786992892916-91d6a4475a1a', author: 'Azimbek Assarov' },
+    photo: BRAND_PHOTOS['tank'],
   },
   {
     slug: 'lixiang',
@@ -226,7 +219,7 @@ export const BRANDS: Brand[] = [
       { title: 'Кондиционер и печка', text: 'Быстро выходит из строя трубка фреона к задним пассажирам. На L6 зимой плохо греет печка из-за воздуха в контуре.', src: 'autonewsLi' },
     ],
     importNote: { text: 'С мая 2025 года Li Auto продаётся официально, серый ввоз остановлен. Машину нельзя активировать российской SIM-картой, и у части дилеров русификация стоит около 200 тысяч рублей. Значит, у машины на вторичке важно понять, откуда она и как её "русифицировали".', src: 'autonewsLiOfficial' },
-    photo: commons('b/bc/Li_Auto_L9_2022102501.jpg/960px-Li_Auto_L9_2022102501.jpg', 'Evnerd', 'CC BY-SA 4.0'),
+    photo: BRAND_PHOTOS['lixiang'],
   },
   {
     slug: 'zeekr',
@@ -241,7 +234,7 @@ export const BRANDS: Brand[] = [
       { title: 'Двери с электроприводом', text: 'Медленно открываются и закрываются, нижняя кромка задевает препятствия. Сильный боковой ветер сбивает датчики.', src: 'altaZeekr' },
       { title: 'Зима и электроника', text: 'Основные недостатки владельцы замечают в сильные морозы. Сбой управления на снегу дилер исправил полной перезагрузкой системы.', src: 'altaZeekr' },
     ],
-    photo: commons('c/c5/Zeekr_001_facelift_001.jpg/960px-Zeekr_001_facelift_001.jpg', 'JustAnotherCarDesigner', 'CC0'),
+    photo: BRAND_PHOTOS['zeekr'],
   },
   {
     slug: 'voyah',
@@ -258,7 +251,7 @@ export const BRANDS: Brand[] = [
       { title: 'Подвеска и тормоза', text: 'На ранних машинах ступичные подшипники гудели уже на 15-20 тысячах км. Тормоза закисают из-за активной рекуперации.', src: 'mailVoyah' },
       { title: 'Датчики парковки', text: 'Гниют косы парктроников, датчики перестают работать или врут.', src: 'mailVoyah' },
     ],
-    photo: commons('9/9c/Voyah_Free_facelift_002.jpg/960px-Voyah_Free_facelift_002.jpg', 'JustAnotherCarDesigner', 'CC0'),
+    photo: BRAND_PHOTOS['voyah'],
   },
   {
     slug: 'byd',
@@ -271,7 +264,7 @@ export const BRANDS: Brand[] = [
       { title: 'Зарядка', text: 'В блоге владельца Song Plus штатная зарядка на 3,1 кВт стала прерываться через 3-4 минуты, причину так и не нашли. На быстрой станции машина заряжалась без сбоев.', src: 'dromByd' },
       { title: 'Подвеска', text: 'В том же блоге к 57 тысячам км в подвеску вложили около 35 тысяч рублей.', src: 'dromBydBlog' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1780690165069-32978b08e556', author: 'Ido l' },
+    photo: BRAND_PHOTOS['byd'],
   },
   {
     slug: 'hongqi',
@@ -286,7 +279,7 @@ export const BRANDS: Brand[] = [
       { title: 'Отделка салона', text: 'Заломы кожи на водительском сиденье, облезает покрытие руля.', src: 'dromHongqi' },
       { title: 'Адаптивный круиз', text: 'Требует постоянно подруливать, иначе выключается, и отключается при включении поворотника.', src: 'dromHongqi' },
     ],
-    photo: commons('3/32/Hongqi_HS5_facelift_011.jpg/960px-Hongqi_HS5_facelift_011.jpg', 'JustAnotherCarDesigner', 'CC0'),
+    photo: BRAND_PHOTOS['hongqi'],
   },
   {
     slug: 'gac',
@@ -302,7 +295,7 @@ export const BRANDS: Brand[] = [
       { title: 'Мультимедиа', text: 'Отключается беспроводной CarPlay или Android Auto, система зависает, мерцает экран.', src: 'dromGac' },
       { title: 'Кузов и трансмиссия', text: 'Тонкое ЛКП и облезающий хром. Подвесной подшипник карданного вала выходил из строя около 60 тысяч км.', src: 'dromGac' },
     ],
-    photo: commons('4/46/2021_GAC_Trumpchi_GS8_%28front%29.jpg/960px-2021_GAC_Trumpchi_GS8_%28front%29.jpg', 'User3204', 'CC BY-SA 4.0'),
+    photo: BRAND_PHOTOS['gac'],
   },
 
   // ---------- Япония ----------
@@ -321,7 +314,7 @@ export const BRANDS: Brand[] = [
       { title: 'Впуск гибридов', text: 'На моторе 1.5 Aqua зарастают отложениями дроссель, клапан EGR и впускной коллектор.', src: 'mailAqua' },
     ],
     importNote: { text: 'Гибриды и машины с мотором больше 1,9 л Япония в Россию больше не отправляет, поэтому свежие Camry, RAV4 и Land Cruiser едут через другие страны.', src: 'autonewsJpBan' },
-    photo: { kind: 'unsplash', id: 'photo-1617469767053-d3b523a0b982', author: 'Krish Parmar' },
+    photo: BRAND_PHOTOS['toyota'],
   },
   {
     slug: 'lexus',
@@ -337,7 +330,7 @@ export const BRANDS: Brand[] = [
       { title: 'Подвеска', text: 'Ревизия подвески и рулевого нужна примерно каждые 150 тысяч км, первыми сдаются передние амортизаторы и ступичные подшипники.', src: 'zrRx' },
     ],
     importNote: { text: 'В I квартале 2025 года по параллельному импорту зарегистрировали 511 Lexus. Почти все они приехали не из Японии напрямую, поэтому историю до ввоза приходится собирать по нескольким странам.', src: 'autonewsPiTop' },
-    photo: { kind: 'unsplash', id: 'photo-1664427356346-c31b46248e71', author: 'NAM CZ' },
+    photo: BRAND_PHOTOS['lexus'],
   },
   {
     slug: 'honda',
@@ -354,7 +347,7 @@ export const BRANDS: Brand[] = [
       { title: 'Полный привод', text: 'Муфта рассчитана на город. Небольшой слой снега может сбить управляющую электронику.', src: 'zrVezel' },
       { title: 'Зеркала', text: 'Шестерни привода складывания зеркал сдаются через 1-2 зимы.', src: 'zrVezel' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1627395427294-d01af2f943ac', author: 'Mufid Majnun' },
+    photo: BRAND_PHOTOS['honda'],
   },
   {
     slug: 'nissan',
@@ -370,7 +363,7 @@ export const BRANDS: Brand[] = [
       { title: 'Кузов', text: 'Сколы и коррозия вокруг хрома и пластика, одной из первых страдает дверь багажника.', src: 'zrXtrail' },
       { title: 'Электроника', text: 'Сбои аудиосистемы, климата и кнопок после небрежной установки допоборудования или попадания воды в разъёмы.', src: 'zrXtrail' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1593912123154-f4c8072e9a02', author: 'Padraig Treanor' },
+    photo: BRAND_PHOTOS['nissan'],
   },
   {
     slug: 'mazda',
@@ -386,7 +379,7 @@ export const BRANDS: Brand[] = [
       { title: 'Полный привод', text: 'Слабое место - угловой редуктор, возможны течи сальников. Вода через дренаж багажника может повредить муфту.', src: 'zrCx5' },
       { title: 'Электрика', text: 'Система i-stop ускоряет износ приводных ремней, нужен аккумулятор EFB. В солёную зиму возможны сбои электроники.', src: 'zrCx5' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1743114713466-f12a85992a75', author: 'Ryan Collins' },
+    photo: BRAND_PHOTOS['mazda'],
   },
   {
     slug: 'subaru',
@@ -402,7 +395,7 @@ export const BRANDS: Brand[] = [
       { title: 'Коррозия', text: 'Без антикоррозийной обработки ржавчина начинается через 4-6 лет: подрамники, рамки дверей, задние арки.', src: 'zrForester' },
       { title: 'Аккумулятор', text: 'На машинах 2019-2024 годов аккумулятор может разряжаться при долгой стоянке из-за ошибок ПО.', src: 'zrForester' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1722542517938-aa6a98d25235', author: 'Andrew Van Hofwegen' },
+    photo: BRAND_PHOTOS['subaru'],
   },
   {
     slug: 'mitsubishi',
@@ -419,7 +412,7 @@ export const BRANDS: Brand[] = [
       { title: 'Лобовое стекло', text: 'Термотрещина при включении обогрева на морозе, часто без вины владельца.', src: 'zrOutlander' },
     ],
     importNote: { text: 'Mitsubishi Outlander в Россию сейчас везут в том числе из ОАЭ. Версия для другого рынка может отличаться оснащением и защитой кузова.', src: 'autonewsPiTop' },
-    photo: { kind: 'unsplash', id: 'photo-1651446404130-104e68e2f39a', author: 'Russian Supreme' },
+    photo: BRAND_PHOTOS['mitsubishi'],
   },
   {
     slug: 'suzuki',
@@ -435,7 +428,7 @@ export const BRANDS: Brand[] = [
       { title: 'Подключение переднего моста', text: 'Пневмошланги могут дать утечку около 30 тысяч км, и передний привод не включается. Это стоит проверить на осмотре.', src: 'mailJimny' },
       { title: 'Амортизаторы', text: 'Текут на 30-50 тысячах км, часто первым задний левый.', src: 'mailJimny' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1624464823981-ae6ef2c9a469', author: 'Eugene Chystiakov' },
+    photo: BRAND_PHOTOS['suzuki'],
   },
 
   // ---------- Корея ----------
@@ -453,7 +446,7 @@ export const BRANDS: Brand[] = [
       { title: 'Катализатор', text: 'Редко переживает 100 тысяч км, керамика может попасть в цилиндры.', src: 'zrG4na' },
       { title: 'Перегрев на кроссоверах', text: 'Система охлаждения слабая, критичнее всего на тяжёлых полноприводных машинах.', src: 'zrG4na' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1575090536203-2a6193126514', author: 'Duncan Winslow' },
+    photo: BRAND_PHOTOS['hyundai'],
   },
   {
     slug: 'kia',
@@ -468,7 +461,7 @@ export const BRANDS: Brand[] = [
       { title: 'Робот с сухими сцеплениями', text: 'Толчки, рывки и ошибки выбора передач. Сцепления и маховик требуют внимания около 50 тысяч км.', src: 'mailSportage' },
       { title: 'Дизель 2.0', text: 'Плохое топливо убивает ТНВД и форсунки, экономия на масле убивает турбину.', src: 'mailSportage' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1688893287874-ac7fbd686c24', author: 'Michail Dementiev' },
+    photo: BRAND_PHOTOS['kia'],
   },
   {
     slug: 'genesis',
@@ -480,7 +473,7 @@ export const BRANDS: Brand[] = [
     problems: [
       { title: 'Стартер и турбина G80', text: 'Слабыми местами G80 первого поколения называют стартер и турбокомпрессор.', src: 'autonewsKr' },
     ],
-    photo: { kind: 'unsplash', id: 'photo-1739950075618-f9ae2f90b0c0', author: 'Hyundai Motor Group' },
+    photo: BRAND_PHOTOS['genesis'],
   },
 ];
 
@@ -492,12 +485,4 @@ export function brandsByCountry(c: BrandCountry) {
   return BRANDS.filter((b) => b.country === c);
 }
 
-export function brandPhotoUrl(p: BrandPhoto, w = 1200, h = 800) {
-  return p.kind === 'unsplash' ? `https://images.unsplash.com/${p.id}?auto=format&fit=crop&q=75&w=${w}&h=${h}` : p.src;
-}
-
-export function brandPhotoCredit(p: BrandPhoto) {
-  return p.kind === 'unsplash'
-    ? { author: p.author, where: 'Unsplash', href: 'https://unsplash.com', license: 'Unsplash License' }
-    : { author: p.author, where: 'Wikimedia Commons', href: p.page, license: p.license };
-}
+export { brandPhotoUrl, brandPhotoCredit } from './photos';

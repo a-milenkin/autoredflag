@@ -30,7 +30,7 @@ export default function FullReport({ report, locale }: { report: Report; locale:
   return (
     <div>
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-        <CarPicture make={v.make} model={v.model} color={v.color} className="aspect-[16/9] w-full shrink-0 sm:w-64" />
+        <CarPicture make={v.make} model={v.model} color={v.color} className="w-full shrink-0 sm:w-72" />
         <div className="flex-1">
           <h1 className="text-3xl font-bold sm:text-4xl">
             {v.make} {v.model}, {v.year}

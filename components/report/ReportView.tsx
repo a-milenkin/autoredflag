@@ -89,7 +89,7 @@ export default function ReportView({ preview, locale }: { preview: ReportPreview
               </span>
             )}
           </div>
-          <CarPicture make={v.make} model={v.model} color={v.color} className="mt-5 aspect-[16/9] w-full max-w-md" />
+          <CarPicture make={v.make} model={v.model} color={v.color} className="mt-5 w-full max-w-md" />
           <dl className="mt-5 grid max-w-md grid-cols-2 gap-x-6 gap-y-2 text-sm">
             <dt className="text-ink-soft">{t.report.origin}</dt>
             <dd className="font-medium">{countryName(v.originCountry)}</dd>
