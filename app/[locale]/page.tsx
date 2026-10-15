@@ -12,6 +12,7 @@ import SearchBox from '@/components/SearchBox';
 import { getCountry, getDictionary } from '@/lib/i18n';
 import { isLocale } from '@/lib/i18n/config';
 import { allRows } from '@/lib/provider/vinTable';
+import { COUNTRY_META, brandsByCountry } from '@/lib/brands/ru';
 
 const VERDICT_TONE: Record<string, { ring: string; badge: string }> = {
   walk: { ring: 'border-flag/40', badge: 'bg-flag text-white' },
@@ -258,6 +259,29 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <Link key={r.vin} href={`/${locale}/report/${r.vin}`} className="rounded-xl bg-mist px-4 py-2 text-sm font-medium hover:bg-[#E6E8EC]">
                 {r.make} {r.model}
               </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* 11b. Марки: перелинковка на страницы марок */}
+        <section className="container-page mt-24">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 className="h2">Типичные проблемы по маркам</h2>
+              <p className="lead mt-3">Что чаще всего ломается у машин, которые везут в Россию, и что проверить до задатка</p>
+            </div>
+            <Link href={`/${locale}/brands`} className="btn-ghost">Все марки</Link>
+          </div>
+          <div className="mt-6 space-y-4">
+            {(['CN', 'JP', 'KR'] as const).map((c) => (
+              <div key={c} className="flex flex-wrap items-center gap-2">
+                <span className="mr-2 w-24 shrink-0 text-sm font-semibold text-ink-soft">{COUNTRY_META[c].flag} {COUNTRY_META[c].name}</span>
+                {brandsByCountry(c).map((b) => (
+                  <Link key={b.slug} href={`/${locale}/brands/${b.slug}`} className="rounded-xl bg-mist px-4 py-2 text-sm font-medium hover:bg-[#E6E8EC]">
+                    {b.name}
+                  </Link>
+                ))}
+              </div>
             ))}
           </div>
         </section>

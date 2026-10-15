@@ -14,6 +14,7 @@ export default function Header({ locale, t }: { locale: string; t: Dictionary; c
           <SearchBox locale={locale} t={t.search} size="sm" />
         </div>
         <nav className="ml-auto hidden items-center gap-5 text-sm lg:flex">
+          <Link href={`/${locale}/brands`} className="text-flag hover:text-flag-dark">{t.nav.brands}</Link>
           <Link href={`/${locale}/world`} className="text-flag hover:text-flag-dark">{t.nav.world}</Link>
           <Link href={`/${locale}/report/LGWHBUSRJGF4CBFPR`} className="text-flag hover:text-flag-dark">{t.nav.sample}</Link>
           <Link href={`/${locale}#pricing`} className="text-flag hover:text-flag-dark">{t.nav.pricing}</Link>
