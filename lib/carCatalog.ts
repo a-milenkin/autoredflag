@@ -30,6 +30,7 @@ const MODEL_PHOTOS: Record<string, BrandPhoto> = {
   [key('Geely', 'Atlas')]: commons('6/6d/2023_Geely_Boyue_L_%282%29%2C_front_8.3.23.jpg/960px-2023_Geely_Boyue_L_%282%29%2C_front_8.3.23.jpg', 'Kevauto', 'CC BY-SA 4.0'),
   [key('Geely', 'Tugella')]: commons('f/f1/Geely_Xingyue_001.jpg/960px-Geely_Xingyue_001.jpg', 'Jengtingchen', 'CC BY-SA 4.0'),
   [key('Changan', 'UNI-K')]: commons('8/84/Changan_UNI-K_001.jpg/960px-Changan_UNI-K_001.jpg', 'Jengtingchen', 'CC BY-SA 4.0'),
+  [key('Changan', 'CS55 Plus')]: BRAND_PHOTOS.changan,
   [key('Changan', 'Alsvin')]: commons('5/5e/Changan_Alsvin_II_003.jpg/960px-Changan_Alsvin_II_003.jpg', 'Jengtingchen', 'CC BY-SA 4.0'),
   [key('Exeed', 'TXL')]: BRAND_PHOTOS.exeed,
   [key('Exeed', 'LX')]: commons('d/da/Exeed_LX_003.jpg/960px-Exeed_LX_003.jpg', 'Jengtingchen', 'CC BY-SA 4.0'),
