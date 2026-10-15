@@ -11,6 +11,7 @@ import { SRC, type SourceKey } from '@/lib/brands/sources';
 import { getCountry, getDictionary } from '@/lib/i18n';
 import { LOCALES, isLocale } from '@/lib/i18n/config';
 import { SITE_URL } from '@/lib/site';
+import { modelsOf } from '@/lib/models/ru';
 
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) => BRANDS.map((b) => ({ locale, slug: b.slug })));
@@ -45,6 +46,7 @@ export default async function BrandPage({ params }: { params: Promise<{ locale: 
   const meta = COUNTRY_META[b.country];
   const risks = COUNTRY_RISKS[b.country];
   const siblings = brandsByCountry(b.country).filter((x) => x.slug !== b.slug);
+  const models = modelsOf(b.slug);
 
   const used = new Set<SourceKey>([...b.problems.map((p) => p.src), ...risks.map((r) => r.src)]);
   if (b.importNote) used.add(b.importNote.src);
@@ -92,6 +94,23 @@ export default async function BrandPage({ params }: { params: Promise<{ locale: 
             <BrandPhoto brand={b} priority credit className="aspect-[3/2] w-full rounded-3xl" />
           </div>
         </section>
+
+        {models.length > 0 && (
+          <section className="container-page mt-16">
+            <h2 className="text-xl font-bold">Подробные разборы по моделям</h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {models.map((m) => (
+                <Link key={m.slug} href={`/${locale}/brands/${b.slug}/${m.slug}`} className="group flex items-center justify-between gap-4 rounded-2xl border border-line p-5 hover:border-flag/40">
+                  <span>
+                    <span className="block font-bold">{m.name}</span>
+                    <span className="mt-1 block text-sm text-ink-soft">Слабые места и что проверить</span>
+                  </span>
+                  <Icon name="arrow" className="size-5 shrink-0 text-flag transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="container-page mt-20">
           <h2 className="h2">Что чаще всего ломается у {b.name}</h2>
