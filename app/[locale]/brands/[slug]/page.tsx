@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale, slug } = await params;
   const b = getBrand(slug);
   if (!isLocale(locale) || !b) return {};
-  const title = `Проверка ${b.name} по VIN: типичные проблемы и риски при покупке`;
+  const title = `Проверка ${b.name} по VIN: типичные проблемы и риски | AutoRedFlag`;
   const description = `Что чаще всего ломается у ${b.name} (${b.models.slice(0, 3).join(', ')}) по разборам и отзывам владельцев, риски ввоза ${COUNTRY_META[b.country].from} и как проверить машину по VIN до сделки.`;
   return { title, description, alternates: { canonical: `/${locale}/brands/${b.slug}` }, openGraph: { title, description } };
 }

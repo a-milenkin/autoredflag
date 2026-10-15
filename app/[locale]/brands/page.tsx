@@ -12,7 +12,7 @@ import { isLocale } from '@/lib/i18n/config';
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const title = 'Проверка авто по маркам: Китай, Япония, Корея';
+  const title = 'Проверка авто по маркам: Китай, Япония, Корея | AutoRedFlag';
   const description = 'Типичные проблемы Haval, Chery, Geely, Toyota, Honda, Hyundai, Kia и других марок, которые везут в Россию. Что проверить до покупки и как проверить машину по VIN.';
   return { title, description, alternates: { canonical: `/${locale}/brands` } };
 }

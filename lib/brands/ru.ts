@@ -241,7 +241,7 @@ export const BRANDS: Brand[] = [
       { title: 'Двери с электроприводом', text: 'Медленно открываются и закрываются, нижняя кромка задевает препятствия. Сильный боковой ветер сбивает датчики.', src: 'altaZeekr' },
       { title: 'Зима и электроника', text: 'Основные недостатки владельцы замечают в сильные морозы. Сбой управления на снегу дилер исправил полной перезагрузкой системы.', src: 'altaZeekr' },
     ],
-    photo: commons('4/45/Moscow_-_Zeekr_001_-_2025-9.jpg/960px-Moscow_-_Zeekr_001_-_2025-9.jpg', 'Юрий Д.К.', 'CC BY 4.0'),
+    photo: commons('c/c5/Zeekr_001_facelift_001.jpg/960px-Zeekr_001_facelift_001.jpg', 'JustAnotherCarDesigner', 'CC0'),
   },
   {
     slug: 'voyah',
